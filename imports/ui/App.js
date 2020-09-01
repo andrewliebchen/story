@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Textarea, Text } from "theme-ui";
+import { Box, Button, Checkbox, Flex, Heading, Textarea, Text } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
 import Thoughts from "../api/thoughts";
 
@@ -21,7 +21,8 @@ function App() {
             Thoughts.insert(
               {
                 value: value,
-                createdAt: Date.now()
+                createdAt: Date.now(),
+                done: false
               },
               (err, success) => success && console.log("Added")
             )
@@ -31,11 +32,24 @@ function App() {
         </Button>
       </Box>
       <Box p={3}>
+        <Heading>Thoughts</Heading>
         {thoughts.map(thought => (
-          <Box key={thought._id}>
-            <Text>{thought.value}</Text>
-            <Text variant="secondary">{thought.createdAt}</Text>
-          </Box>
+          <Flex key={thought._id} sx={{ alignItems: "center", mt: 3 }}>
+            <Box>
+              <Text variant="secondary">{thought.createdAt}</Text>
+              <Text sx={{ textDecoration: thought.done && "line-through" }}>
+                {thought.value}
+              </Text>
+              <Button
+                children={thought.done ? "Not done" : "Done"}
+                onClick={() =>
+                  Thoughts.update(thought._id, {
+                    $set: { done: !thought.done }
+                  })
+                }
+              />
+            </Box>
+          </Flex>
         ))}
       </Box>
     </Box>
