@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Heading, Textarea, Text } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
-import MarkdownRenderer from "react-markdown-renderer";
+import MarkdownView from "react-showdown";
 import React, { useState } from "react";
 import Thoughts from "../api/thoughts";
 
@@ -39,7 +39,7 @@ function App() {
             <Box>
               <Text variant="secondary">{thought.createdAt}</Text>
               <Text sx={{ textDecoration: thought.done && "line-through" }}>
-                <MarkdownRenderer markdown={thought.value} />
+                <MarkdownView markdown={thought.value} />
               </Text>
               <Button
                 children={thought.done ? "Not done" : "Done"}

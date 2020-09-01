@@ -12,7 +12,7 @@
     "meteor-node-stubs": "^1.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-markdown-renderer": "^1.4.0",
+    "react-showdown": "^2.1.0",
     "theme-ui": "^0.3.1"
   },
   "meteor": {

@@ -1,8 +1,8 @@
-import React from "react";
 import { Meteor } from "meteor/meteor";
 import { render } from "react-dom";
-import App from "/imports/ui/App";
 import { ThemeProvider } from "theme-ui";
+import App from "/imports/ui/App";
+import React from "react";
 import theme from "/imports/utils/theme";
 
 Meteor.startup(() => {
