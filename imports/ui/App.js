@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Box, Button, Checkbox, Flex, Heading, Textarea, Text } from "theme-ui";
+import { Box, Button, Flex, Heading, Textarea, Text } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
+import MarkdownRenderer from "react-markdown-renderer";
+import React, { useState } from "react";
 import Thoughts from "../api/thoughts";
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
             <Box>
               <Text variant="secondary">{thought.createdAt}</Text>
               <Text sx={{ textDecoration: thought.done && "line-through" }}>
-                {thought.value}
+                <MarkdownRenderer markdown={thought.value} />
               </Text>
               <Button
                 children={thought.done ? "Not done" : "Done"}
