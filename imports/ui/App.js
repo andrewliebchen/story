@@ -26,6 +26,7 @@ function App() {
   }));
 
   const [thoughtValue, setThoughtValue] = useState("");
+  const [storyWords, setStoryWords] = useState([]);
 
   return (
     <Box
@@ -49,14 +50,20 @@ function App() {
               placeholder="Write your story"
               mb={3}
             />
-            {wordChunks(story.sourceText).map((word, i) => (
-              <Box key={i}>
-                <Text>{word}</Text>
-              </Box>
-            ))}
+            <Button onClick={() => setStoryWords(wordChunks(story.sourceText))}>
+              Parse
+            </Button>
+            <Box mt={3}>
+              {storyWords.map((word, i) => (
+                <Box key={i}>
+                  <Text>{word}</Text>
+                </Box>
+              ))}
+            </Box>
           </Box>
         )}
       </Box>
+
       <Box>
         <Box>
           <Textarea
