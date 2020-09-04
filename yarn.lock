@@ -821,6 +821,11 @@ isarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
+javascript-state-machine@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/javascript-state-machine/-/javascript-state-machine-3.1.0.tgz#06eeb2136a6a19ae1b56105c25caec283dd5cd14"
+  integrity sha512-BwhYxQ1OPenBPXC735RgfB+ZUG8H3kjsx8hrYTgWnoy6TPipEy4fiicyhT2lxRKAXq9pG7CfFT8a2HLr6Hmwxg==
+
 javascript-time-ago@^2.0.2:
   version "2.0.13"
   resolved "https://registry.yarnpkg.com/javascript-time-ago/-/javascript-time-ago-2.0.13.tgz#aa11f80887ce044f851a78c8761861e436ed0954"
@@ -1232,6 +1237,13 @@ source-map@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
+
+split-word@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/split-word/-/split-word-1.0.1.tgz#cc7aeece2cd33c936d95b43638f372ec84385d7f"
+  integrity sha512-Ye3wTK5XuQk6Wp33og4ULGBBn0+rJXbMGDrC25ZzxcgyP5p6vwaOQb44wvMeAYWOdX6YPXFpfALEhWSMpCumrw==
+  dependencies:
+    javascript-state-machine "^3.1.0"
 
 stream-browserify@^2.0.2:
   version "2.0.2"

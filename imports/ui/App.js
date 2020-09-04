@@ -8,6 +8,7 @@ import {
   Text
 } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
+import { wordChunks } from "split-word";
 import en from "javascript-time-ago/locale/en";
 import JavascriptTimeAgo from "javascript-time-ago";
 import MarkdownView from "react-showdown";
@@ -37,16 +38,23 @@ function App() {
     >
       <Box>
         {story && (
-          <Textarea
-            defaultValue={story.sourceText}
-            onChange={event =>
-              Stories.update(story._id, {
-                $set: { sourceText: event.target.value }
-              })
-            }
-            placeholder="Write your story"
-            sx={{ height: "50vh" }}
-          />
+          <Box>
+            <Textarea
+              defaultValue={story.sourceText}
+              onChange={event =>
+                Stories.update(story._id, {
+                  $set: { sourceText: event.target.value }
+                })
+              }
+              placeholder="Write your story"
+              mb={3}
+            />
+            {wordChunks(story.sourceText).map((word, i) => (
+              <Box key={i}>
+                <Text>{word}</Text>
+              </Box>
+            ))}
+          </Box>
         )}
       </Box>
       <Box>
