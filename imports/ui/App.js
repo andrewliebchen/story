@@ -52,7 +52,7 @@ function App() {
       <Box>
         <Box>
           <Textarea
-            defaultValue={thoughtValue}
+            value={thoughtValue}
             onChange={event => setThoughtValue(event.target.value)}
             mb={3}
             placeholder="Add a thought"
@@ -62,12 +62,12 @@ function App() {
             onClick={() =>
               Thoughts.insert(
                 {
-                  value: value,
+                  value: thoughtValue,
                   createdAt: Date.now(),
                   lastUpdated: Date.now(),
                   done: false
                 },
-                (err, success) => success && console.log("Added")
+                (err, success) => success && setThoughtValue("")
               )
             }
           >
