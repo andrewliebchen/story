@@ -57,7 +57,8 @@ function App() {
             sx={{
               alignItems: "center",
               justifyContent: "space-between",
-              mt: 3,
+              mx: -3,
+              p: 3,
               "&:hover": {
                 backgroundColor: "muted"
               }
