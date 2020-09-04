@@ -9,37 +9,51 @@ import {
 } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
 import en from "javascript-time-ago/locale/en";
+import JavascriptTimeAgo from "javascript-time-ago";
 import MarkdownView from "react-showdown";
 import React, { useState } from "react";
+import Stories from "../api/stories";
 import Thoughts from "../api/thoughts";
 import TimeAgo from "react-time-ago";
-import JavascriptTimeAgo from "javascript-time-ago";
 
 JavascriptTimeAgo.addLocale(en);
 
 function App() {
-  const thoughts = useTracker(() =>
-    Thoughts.find({}, { sort: { createdAt: -1 } }).fetch()
-  );
-  const [value, setValue] = useState("");
+  const { thoughts, story } = useTracker(() => ({
+    thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
+    story: Stories.findOne()
+  }));
+
+  const [thoughtValue, setThoughtValue] = useState("");
 
   return (
     <Box
       sx={{
         display: "grid",
-        gridGap: 3,
+        gridGap: 4,
         gridTemplateColumns: "1fr 400px",
-        p: 3
+        p: 4
       }}
     >
       <Box>
-        <Textarea placeholder="Write your story" sx={{ height: "50vh" }} />
+        {story && (
+          <Textarea
+            defaultValue={story.sourceText}
+            onChange={event =>
+              Stories.update(story._id, {
+                $set: { sourceText: event.target.value }
+              })
+            }
+            placeholder="Write your story"
+            sx={{ height: "50vh" }}
+          />
+        )}
       </Box>
       <Box>
         <Box>
           <Textarea
-            defaultValue={value}
-            onChange={event => setValue(event.target.value)}
+            defaultValue={thoughtValue}
+            onChange={event => setThoughtValue(event.target.value)}
             mb={3}
             placeholder="Add a thought"
           />
@@ -88,17 +102,17 @@ function App() {
               </Box>
               <Flex sx={{ alignItems: "center" }}>
                 <IconButton
+                  children="🗑"
                   mr={2}
                   onClick={() =>
                     window.confirm(
                       "Are you sure you want to delete this Thought? This action can't be undone."
                     ) && Thoughts.remove(thought._id)
                   }
-                >
-                  🗑
-                </IconButton>
-                <Button
-                  children={thought.done ? "Open" : "Resolve"}
+                />
+
+                <IconButton
+                  children={thought.done ? "⏮" : "✅"}
                   onClick={() =>
                     Thoughts.update(thought._id, {
                       $set: { done: !thought.done, updatedAt: Date.now() }
