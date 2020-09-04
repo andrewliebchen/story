@@ -88,7 +88,7 @@ function App() {
                 🗑
               </IconButton>
               <Button
-                children={thought.done ? "Undo" : "Done"}
+                children={thought.done ? "Open" : "Resolve"}
                 onClick={() =>
                   Thoughts.update(thought._id, {
                     $set: { done: !thought.done, updatedAt: Date.now() }
