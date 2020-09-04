@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Heading, Textarea, Text } from "theme-ui";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  IconButton,
+  Textarea,
+  Text
+} from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
 import en from "javascript-time-ago/locale/en";
 import MarkdownView from "react-showdown";
@@ -44,7 +52,17 @@ function App() {
       <Box p={3}>
         <Heading>Thoughts</Heading>
         {thoughts.map(thought => (
-          <Flex key={thought._id} sx={{ alignItems: "center", mt: 3 }}>
+          <Flex
+            key={thought._id}
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              mt: 3,
+              "&:hover": {
+                backgroundColor: "muted"
+              }
+            }}
+          >
             <Box>
               <Text sx={{ textDecoration: thought.done && "line-through" }}>
                 <MarkdownView markdown={thought.value} />
@@ -57,6 +75,18 @@ function App() {
                   Updated <TimeAgo date={thought.updatedAt} />
                 </Text>
               )}
+            </Box>
+            <Flex sx={{ alignItems: "center" }}>
+              <IconButton
+                mr={2}
+                onClick={() =>
+                  window.confirm(
+                    "Are you sure you want to delete this Thought? This action can't be undone."
+                  ) && Thoughts.remove(thought._id)
+                }
+              >
+                🗑
+              </IconButton>
               <Button
                 children={thought.done ? "Undo" : "Done"}
                 onClick={() =>
@@ -65,7 +95,7 @@ function App() {
                   })
                 }
               />
-            </Box>
+            </Flex>
           </Flex>
         ))}
       </Box>
