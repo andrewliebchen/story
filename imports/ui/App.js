@@ -2,13 +2,16 @@ import {
   Box,
   Button,
   Flex,
+  Grid,
   Heading,
   IconButton,
+  Select,
   Textarea,
   Text
 } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
 import { wordChunks } from "split-word";
+import { wordTypes } from "../utils/types";
 import en from "javascript-time-ago/locale/en";
 import JavascriptTimeAgo from "javascript-time-ago";
 import MarkdownView from "react-showdown";
@@ -30,14 +33,7 @@ function App() {
   const [thoughtValue, setThoughtValue] = useState("");
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridGap: 4,
-        gridTemplateColumns: "1fr 400px",
-        p: 4
-      }}
-    >
+    <Grid gap={4} columns="1fr 400px" p={4}>
       <Box>
         {story && (
           <Box>
@@ -69,9 +65,30 @@ function App() {
               {story.wordIds.map(function(id) {
                 const word = words.find(word => word._id === id);
                 return (
-                  <Box key={word._id}>
-                    <Text>{word.value}</Text>
-                  </Box>
+                  <Grid
+                    key={word._id}
+                    gap={2}
+                    columns={2}
+                    sx={{
+                      px: 3,
+                      py: 1,
+                      mx: -3,
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      "&:hover": {
+                        backgroundColor: "muted"
+                      }
+                    }}
+                  >
+                    <Text sx={{ fontSize: 3 }}>{word.value}</Text>
+                    <Select>
+                      {wordTypes.map(word => (
+                        <option key={word} value={word}>
+                          {word}
+                        </option>
+                      ))}
+                    </Select>
+                  </Grid>
                 );
               })}
             </Box>
@@ -154,7 +171,7 @@ function App() {
           ))}
         </Box>
       </Box>
-    </Box>
+    </Grid>
   );
 }
 
