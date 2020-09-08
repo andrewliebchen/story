@@ -15,18 +15,19 @@ import MarkdownView from "react-showdown";
 import React, { useState } from "react";
 import Stories from "../api/stories";
 import Thoughts from "../api/thoughts";
+import Words from "../api/words";
 import TimeAgo from "react-time-ago";
 
 JavascriptTimeAgo.addLocale(en);
 
 function App() {
-  const { thoughts, story } = useTracker(() => ({
+  const { thoughts, story, words } = useTracker(() => ({
     thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
-    story: Stories.findOne()
+    story: Stories.findOne(),
+    words: Words.find({}).fetch()
   }));
 
   const [thoughtValue, setThoughtValue] = useState("");
-  const [storyWords, setStoryWords] = useState([]);
 
   return (
     <Box
@@ -50,15 +51,29 @@ function App() {
               placeholder="Write your story"
               mb={3}
             />
-            <Button onClick={() => setStoryWords(wordChunks(story.sourceText))}>
+            <Button
+              onClick={() => {
+                const words = wordChunks(story.sourceText);
+                let wordIds = words.map(word =>
+                  Words.insert({ value: word, storyId: storyId })
+                );
+
+                Stories.update(story._id, {
+                  $set: { wordIds: wordIds }
+                });
+              }}
+            >
               Parse
             </Button>
             <Box mt={3}>
-              {storyWords.map((word, i) => (
-                <Box key={i}>
-                  <Text>{word}</Text>
-                </Box>
-              ))}
+              {story.wordIds.map(function(id) {
+                const word = words.find(word => word._id === id);
+                return (
+                  <Box key={word._id}>
+                    <Text>{word.value}</Text>
+                  </Box>
+                );
+              })}
             </Box>
           </Box>
         )}
