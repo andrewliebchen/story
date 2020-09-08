@@ -25,10 +25,11 @@ export const base = {
   },
   colors: {
     text: "#000",
+    textSecondary: "rgba(0, 0, 0, 0.5)",
     background: "#fff",
-    primary: "#07c",
-    secondary: "#30c",
-    muted: "#f6f6f6"
+    primary: "blue",
+    secondary: "purple",
+    muted: "rgba(0, 0, 0, 0.05)"
   },
 
   text: {

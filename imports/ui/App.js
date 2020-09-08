@@ -49,14 +49,20 @@ function App() {
             />
             <Button
               onClick={() => {
-                const words = wordChunks(story.sourceText);
-                let wordIds = words.map(word =>
-                  Words.insert({ value: word, storyId: storyId })
-                );
+                if (
+                  window.confirm(
+                    "Are you sure you want parse the story? You might remove classifications you've already done."
+                  )
+                ) {
+                  const words = wordChunks(story.sourceText);
+                  let wordIds = words.map(word =>
+                    Words.insert({ value: word, storyId: story._id })
+                  );
 
-                Stories.update(story._id, {
-                  $set: { wordIds: wordIds }
-                });
+                  Stories.update(story._id, {
+                    $set: { wordIds: wordIds }
+                  });
+                }
               }}
             >
               Parse
@@ -64,6 +70,7 @@ function App() {
             <Box mt={3}>
               {story.wordIds.map(function(id) {
                 const word = words.find(word => word._id === id);
+                console.log(word);
                 return (
                   <Grid
                     key={word._id}
@@ -80,8 +87,23 @@ function App() {
                       }
                     }}
                   >
-                    <Text sx={{ fontSize: 3 }}>{word.value}</Text>
-                    <Select>
+                    <Text
+                      sx={{
+                        fontSize: 3,
+                        color: word.type || "textSecondary"
+                      }}
+                    >
+                      {word.value}
+                    </Text>
+                    <Select
+                      value={word.type}
+                      onChange={event =>
+                        Words.update(word._id, {
+                          $set: { type: event.target.value }
+                        })
+                      }
+                    >
+                      <option value={null}>ignore</option>
                       {wordTypes.map(word => (
                         <option key={word} value={word}>
                           {word}
