@@ -12,16 +12,11 @@ import {
 import { useTracker } from "meteor/react-meteor-data";
 import { wordChunks } from "split-word";
 import { wordTypes } from "../utils/types";
-import en from "javascript-time-ago/locale/en";
-import JavascriptTimeAgo from "javascript-time-ago";
-import MarkdownView from "react-showdown";
 import React, { useState } from "react";
 import Stories from "../api/stories";
 import Thoughts from "../api/thoughts";
 import Words from "../api/words";
-import TimeAgo from "react-time-ago";
-
-JavascriptTimeAgo.addLocale(en);
+import Thought from "./Thought";
 
 function App() {
   const { thoughts, story, words } = useTracker(() => ({
@@ -148,57 +143,7 @@ function App() {
         </Button>
         <Heading mt={3}>Thoughts</Heading>
         {thoughts.map(thought => (
-          <Flex
-            key={thought._id}
-            sx={{
-              alignItems: "center",
-              justifyContent: "space-between",
-              mx: -3,
-              p: 3,
-              "&:hover": {
-                backgroundColor: "muted"
-              }
-            }}
-          >
-            <Box>
-              <Text
-                sx={{
-                  textDecoration: thought.done && "line-through",
-                  flex: "auto"
-                }}
-              >
-                <MarkdownView markdown={thought.value} />
-              </Text>
-              <Text variant="secondary">
-                Created <TimeAgo date={thought.createdAt} />
-              </Text>
-              {thought.updatedAt && (
-                <Text variant="secondary">
-                  Updated <TimeAgo date={thought.updatedAt} />
-                </Text>
-              )}
-            </Box>
-            <Flex sx={{ alignItems: "center", flex: "0 0 auto", ml: 2 }}>
-              <IconButton
-                children="🗑"
-                mr={2}
-                onClick={() =>
-                  window.confirm(
-                    "Are you sure you want to delete this Thought? This action can't be undone."
-                  ) && Thoughts.remove(thought._id)
-                }
-              />
-
-              <IconButton
-                children={thought.done ? "⏮" : "✅"}
-                onClick={() =>
-                  Thoughts.update(thought._id, {
-                    $set: { done: !thought.done, updatedAt: Date.now() }
-                  })
-                }
-              />
-            </Flex>
-          </Flex>
+          <Thought key={thought._id} {...thought} />
         ))}
       </Box>
     </Grid>
