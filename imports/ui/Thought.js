@@ -3,6 +3,7 @@ import en from "javascript-time-ago/locale/en";
 import JavascriptTimeAgo from "javascript-time-ago";
 import MarkdownView from "react-showdown";
 import React from "react";
+import PropTypes from "prop-types";
 import Thoughts from "../api/thoughts";
 import TimeAgo from "react-time-ago";
 
@@ -52,7 +53,7 @@ const Thought = props => (
       <IconButton
         children={props.done ? "⏮" : "✅"}
         onClick={() =>
-          Thoughts.update(thought._id, {
+          Thoughts.update(props._id, {
             $set: { done: !props.done, updatedAt: Date.now() }
           })
         }
@@ -60,5 +61,13 @@ const Thought = props => (
     </Flex>
   </Flex>
 );
+
+Thought.propTypes = {
+  _id: PropTypes.string,
+  createdAt: PropTypes.string,
+  done: PropTypes.boolean,
+  updatedAt: PropTypes.string,
+  value: PropTypes.string
+};
 
 export default Thought;
