@@ -64,9 +64,8 @@ const Thought = props => (
 
 Thought.propTypes = {
   _id: PropTypes.string,
-  createdAt: PropTypes.string,
-  done: PropTypes.boolean,
-  updatedAt: PropTypes.string,
+  createdAt: PropTypes.number,
+  updatedAt: PropTypes.number,
   value: PropTypes.string
 };
 
