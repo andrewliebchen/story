@@ -33,165 +33,173 @@ function App() {
   const [thoughtValue, setThoughtValue] = useState("");
 
   return (
-    <Grid gap={4} columns="1fr 400px" p={4}>
-      <Box>
-        {story && (
-          <Box>
-            <Textarea
-              defaultValue={story.sourceText}
-              onChange={event =>
-                Stories.update(story._id, {
-                  $set: { sourceText: event.target.value }
-                })
-              }
-              placeholder="Write your story"
-              mb={3}
-            />
-            <Button
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Are you sure you want parse the story? You might remove classifications you've already done."
-                  )
-                ) {
-                  const words = wordChunks(story.sourceText);
-                  let wordIds = words.map(word =>
-                    Words.insert({ value: word, storyId: story._id })
-                  );
-
-                  Stories.update(story._id, {
-                    $set: { wordIds: wordIds }
-                  });
-                }
-              }}
-            >
-              Parse
-            </Button>
-            <Box mt={3}>
-              {story.wordIds.map(function(id) {
-                const word = words.find(word => word._id === id);
-                console.log(word);
-                return (
-                  <Grid
-                    key={word._id}
-                    gap={2}
-                    columns={2}
-                    sx={{
-                      px: 3,
-                      py: 1,
-                      mx: -3,
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      "&:hover": {
-                        backgroundColor: "muted"
-                      }
-                    }}
-                  >
-                    <Text
-                      sx={{
-                        fontSize: 3,
-                        color: word.type || "textSecondary"
-                      }}
-                    >
-                      {word.value}
-                    </Text>
-                    <Select
-                      value={word.type}
-                      onChange={event =>
-                        Words.update(word._id, {
-                          $set: { type: event.target.value }
-                        })
-                      }
-                    >
-                      <option value={null}>ignore</option>
-                      {wordTypes.map(word => (
-                        <option key={word} value={word}>
-                          {word}
-                        </option>
-                      ))}
-                    </Select>
-                  </Grid>
-                );
-              })}
-            </Box>
-          </Box>
-        )}
-      </Box>
-
-      <Box>
-        <Box>
+    <Grid gap={4} columns="1fr 400px" px={4} py={0}>
+      {story && (
+        <Box
+          sx={{
+            py: 4,
+            top: 0,
+            position: "sticky",
+            flex: "0 0 auto",
+            height: "100vh"
+          }}
+        >
           <Textarea
-            value={thoughtValue}
-            onChange={event => setThoughtValue(event.target.value)}
+            defaultValue={story.sourceText}
+            onChange={event =>
+              Stories.update(story._id, {
+                $set: { sourceText: event.target.value }
+              })
+            }
+            placeholder="Write your story"
             mb={3}
-            placeholder="Add a thought"
           />
           <Button
-            variant="primary"
-            onClick={() =>
-              Thoughts.insert(
-                {
-                  value: thoughtValue,
-                  createdAt: Date.now(),
-                  lastUpdated: Date.now(),
-                  done: false
-                },
-                (err, success) => success && setThoughtValue("")
-              )
-            }
-          >
-            Create
-          </Button>
-          <Heading mt={3}>Thoughts</Heading>
-          {thoughts.map(thought => (
-            <Flex
-              key={thought._id}
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                mx: -3,
-                p: 3,
-                "&:hover": {
-                  backgroundColor: "muted"
-                }
-              }}
-            >
-              <Box>
-                <Text sx={{ textDecoration: thought.done && "line-through" }}>
-                  <MarkdownView markdown={thought.value} />
-                </Text>
-                <Text variant="secondary">
-                  Created <TimeAgo date={thought.createdAt} />
-                </Text>
-                {thought.updatedAt && (
-                  <Text variant="secondary">
-                    Updated <TimeAgo date={thought.updatedAt} />
-                  </Text>
-                )}
-              </Box>
-              <Flex sx={{ alignItems: "center" }}>
-                <IconButton
-                  children="🗑"
-                  mr={2}
-                  onClick={() =>
-                    window.confirm(
-                      "Are you sure you want to delete this Thought? This action can't be undone."
-                    ) && Thoughts.remove(thought._id)
-                  }
-                />
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Are you sure you want parse the story? You might remove classifications you've already done."
+                )
+              ) {
+                const words = wordChunks(story.sourceText);
+                let wordIds = words.map(word =>
+                  Words.insert({ value: word, storyId: story._id })
+                );
 
-                <IconButton
-                  children={thought.done ? "⏮" : "✅"}
-                  onClick={() =>
-                    Thoughts.update(thought._id, {
-                      $set: { done: !thought.done, updatedAt: Date.now() }
-                    })
-                  }
-                />
-              </Flex>
-            </Flex>
-          ))}
+                Stories.update(story._id, {
+                  $set: { wordIds: wordIds }
+                });
+              }
+            }}
+          >
+            Parse
+          </Button>
+          <Box mt={3}>
+            {story.wordIds.map(function(id) {
+              const word = words.find(word => word._id === id);
+              return (
+                <Grid
+                  key={word._id}
+                  gap={2}
+                  columns={2}
+                  sx={{
+                    px: 3,
+                    py: 1,
+                    mx: -3,
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    "&:hover": {
+                      backgroundColor: "muted"
+                    }
+                  }}
+                >
+                  <Text
+                    sx={{
+                      fontSize: 3,
+                      color: word.type || "textSecondary"
+                    }}
+                  >
+                    {word.value}
+                  </Text>
+                  <Select
+                    value={word.type}
+                    onChange={event =>
+                      Words.update(word._id, {
+                        $set: { type: event.target.value }
+                      })
+                    }
+                  >
+                    <option value={null}>ignore</option>
+                    {wordTypes.map(word => (
+                      <option key={word} value={word}>
+                        {word}
+                      </option>
+                    ))}
+                  </Select>
+                </Grid>
+              );
+            })}
+          </Box>
         </Box>
+      )}
+
+      <Box sx={{ py: 4 }}>
+        <Textarea
+          value={thoughtValue}
+          onChange={event => setThoughtValue(event.target.value)}
+          mb={3}
+          placeholder="Add a thought"
+        />
+        <Button
+          variant="primary"
+          onClick={() =>
+            Thoughts.insert(
+              {
+                value: thoughtValue,
+                createdAt: Date.now(),
+                lastUpdated: Date.now(),
+                done: false
+              },
+              (err, success) => success && setThoughtValue("")
+            )
+          }
+        >
+          Create
+        </Button>
+        <Heading mt={3}>Thoughts</Heading>
+        {thoughts.map(thought => (
+          <Flex
+            key={thought._id}
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              mx: -3,
+              p: 3,
+              "&:hover": {
+                backgroundColor: "muted"
+              }
+            }}
+          >
+            <Box>
+              <Text
+                sx={{
+                  textDecoration: thought.done && "line-through",
+                  flex: "auto"
+                }}
+              >
+                <MarkdownView markdown={thought.value} />
+              </Text>
+              <Text variant="secondary">
+                Created <TimeAgo date={thought.createdAt} />
+              </Text>
+              {thought.updatedAt && (
+                <Text variant="secondary">
+                  Updated <TimeAgo date={thought.updatedAt} />
+                </Text>
+              )}
+            </Box>
+            <Flex sx={{ alignItems: "center", flex: "0 0 auto", ml: 2 }}>
+              <IconButton
+                children="🗑"
+                mr={2}
+                onClick={() =>
+                  window.confirm(
+                    "Are you sure you want to delete this Thought? This action can't be undone."
+                  ) && Thoughts.remove(thought._id)
+                }
+              />
+
+              <IconButton
+                children={thought.done ? "⏮" : "✅"}
+                onClick={() =>
+                  Thoughts.update(thought._id, {
+                    $set: { done: !thought.done, updatedAt: Date.now() }
+                  })
+                }
+              />
+            </Flex>
+          </Flex>
+        ))}
       </Box>
     </Grid>
   );
