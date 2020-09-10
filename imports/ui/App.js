@@ -1,10 +1,9 @@
-import { Box, Button, Grid, Heading, Textarea } from "theme-ui";
+import { Box, Grid, Heading } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
 import React from "react";
 import Chapters from "../api/chapters";
 import Thoughts from "../api/thoughts";
 import Thought from "./Thought";
-import StoryWord from "./StoryWord";
 import Chapter from "./Chapter";
 import New from "./New";
 
