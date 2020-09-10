@@ -1,13 +1,8 @@
-import { Box, Flex, IconButton, Text } from "theme-ui";
-import en from "javascript-time-ago/locale/en";
-import JavascriptTimeAgo from "javascript-time-ago";
+import { IconButton } from "theme-ui";
 import React from "react";
 import PropTypes from "prop-types";
 import Chapters from "../api/chapters";
-import TimeAgo from "react-time-ago";
 import ElementRow from "./ElementRow";
-
-JavascriptTimeAgo.addLocale(en);
 
 const Chapter = props => (
   <ElementRow
