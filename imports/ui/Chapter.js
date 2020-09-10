@@ -52,4 +52,11 @@ const Chapter = props => (
   </Flex>
 );
 
+Chapter.propTypes = {
+  _id: PropTypes.string,
+  createdAt: PropTypes.number,
+  updatedAt: PropTypes.number,
+  value: PropTypes.string
+};
+
 export default Chapter;
