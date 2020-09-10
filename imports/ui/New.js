@@ -22,7 +22,12 @@ function New(props) {
               createdAt: Date.now(),
               lastUpdated: Date.now()
             },
-            (err, success) => success && setValue("")
+            (err, success) => {
+              if (success) {
+                props.clickMixin && props.clickMixin(success, value);
+                setValue("");
+              }
+            }
           )
         }
       >
@@ -33,6 +38,7 @@ function New(props) {
 }
 
 New.propTypes = {
+  clickMixin: PropTypes.func,
   cursor: PropTypes.any,
   placeholder: PropTypes.string
 };
