@@ -29,6 +29,7 @@ function App() {
             height: "100vh"
           }}
         >
+          <Heading mb={3}>Story</Heading>
           <Textarea
             defaultValue={story.sourceText}
             onChange={event =>
@@ -69,6 +70,7 @@ function App() {
       )}
 
       <Box sx={{ py: 4 }}>
+        <Heading mb={3}>Thoughts</Heading>
         <Textarea
           value={thoughtValue}
           onChange={event => setThoughtValue(event.target.value)}
@@ -91,7 +93,6 @@ function App() {
         >
           Create
         </Button>
-        <Heading mt={3}>Thoughts</Heading>
         {thoughts.map(thought => (
           <Thought key={thought._id} {...thought} />
         ))}
