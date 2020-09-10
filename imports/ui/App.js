@@ -14,16 +14,8 @@ function App() {
   }));
 
   return (
-    <Grid gap={4} columns="1fr 400px" px={4} py={0}>
-      <Box
-        sx={{
-          py: 4,
-          top: 0,
-          position: "sticky",
-          flex: "0 0 auto",
-          height: "100vh"
-        }}
-      >
+    <Grid sx={{ p: 4, gap: 4, gridAutoFlow: "column", gridAutoColumns: "1fr" }}>
+      <Box>
         <Heading mb={3}>Chapters</Heading>
         <New cursor={Chapters} placeholder="Add a new chapter" />
         {chapters.map(chapter => (
@@ -31,7 +23,7 @@ function App() {
         ))}
       </Box>
 
-      <Box sx={{ py: 4 }}>
+      <Box>
         <Heading mb={3}>Thoughts</Heading>
         <New cursor={Thoughts} placeholder="Add a new thought" />
         {thoughts.map(thought => (
