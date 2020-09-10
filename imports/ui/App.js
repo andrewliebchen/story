@@ -1,11 +1,11 @@
 import { Box, Grid, Heading } from "theme-ui";
 import { useTracker } from "meteor/react-meteor-data";
-import React from "react";
-import Chapters from "../api/chapters";
-import Thoughts from "../api/thoughts";
-import Thought from "./Thought";
 import Chapter from "./Chapter";
+import Chapters from "../api/chapters";
 import New from "./New";
+import React from "react";
+import Thought from "./Thought";
+import Thoughts from "../api/thoughts";
 
 function App() {
   const { thoughts, chapters, words } = useTracker(() => ({

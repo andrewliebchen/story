@@ -5,40 +5,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import Chapters from "../api/chapters";
 import TimeAgo from "react-time-ago";
+import ElementRow from "./ElementRow";
 
 JavascriptTimeAgo.addLocale(en);
 
 const Chapter = props => (
-  <Flex
-    sx={{
-      alignItems: "center",
-      justifyContent: "space-between",
-      mx: -3,
-      p: 3,
-      "&:hover": {
-        backgroundColor: "muted"
-      }
-    }}
-  >
-    <Box>
-      <Text
-        sx={{
-          textDecoration: props.done && "line-through",
-          flex: "auto"
-        }}
-      >
-        {props.value}
-      </Text>
-      <Text variant="secondary">
-        Created <TimeAgo date={props.createdAt} />
-      </Text>
-      {props.updatedAt && (
-        <Text variant="secondary">
-          Updated <TimeAgo date={props.updatedAt} />
-        </Text>
-      )}
-    </Box>
-    <Flex sx={{ alignItems: "center", flex: "0 0 auto", ml: 2 }}>
+  <ElementRow
+    actions={
       <IconButton
         children="🗑"
         mr={2}
@@ -48,8 +21,9 @@ const Chapter = props => (
           ) && Chapters.remove(props._id)
         }
       />
-    </Flex>
-  </Flex>
+    }
+    {...props}
+  />
 );
 
 Chapter.propTypes = {
