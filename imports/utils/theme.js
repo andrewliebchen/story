@@ -28,7 +28,7 @@ export const base = {
     textSecondary: "rgba(0, 0, 0, 0.5)",
     background: "#fff",
     primary: "rgba(0, 0, 255, 1.0)",
-    primaryBg: "rgba(0, 0, 255, 0.1)",
+    primaryBg: "rgba(0, 0, 255, 0.05)",
     secondary: "purple",
     muted: "rgba(0, 0, 0, 0.05)"
   },

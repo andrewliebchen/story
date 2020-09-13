@@ -12,7 +12,7 @@ const Chapter = props => (
         {props.words
           .filter(word => word.parentId === props._id)
           .map(word => (
-            <Word key={word._id}>{word.value}</Word>
+            <Word key={word._id} {...word} />
           ))}
       </Flex>
     }
