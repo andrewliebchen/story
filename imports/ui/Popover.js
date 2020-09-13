@@ -9,10 +9,11 @@ const Popover = props => (
       bottom: "100%",
       p: 2,
       position: "absolute",
-      userSelect: "none"
+      userSelect: "none",
+      width: 200
     }}
   >
-    <Text>{props._id}</Text>
+    {props.children}
   </Box>
 );
 
