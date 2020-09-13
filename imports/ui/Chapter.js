@@ -1,11 +1,21 @@
-import { IconButton } from "theme-ui";
-import React from "react";
-import PropTypes from "prop-types";
+import { Flex, IconButton } from "theme-ui";
 import Chapters from "../api/chapters";
 import ElementRow from "./ElementRow";
+import PropTypes from "prop-types";
+import React from "react";
+import Word from "./Word";
 
 const Chapter = props => (
   <ElementRow
+    content={
+      <Flex>
+        {props.words
+          .filter(word => word.parentId === props._id)
+          .map(word => (
+            <Word key={word._id}>{word.value}</Word>
+          ))}
+      </Flex>
+    }
     actions={
       <IconButton
         children="🗑"
@@ -25,7 +35,8 @@ Chapter.propTypes = {
   _id: PropTypes.string,
   createdAt: PropTypes.number,
   updatedAt: PropTypes.number,
-  value: PropTypes.string
+  value: PropTypes.string,
+  words: PropTypes.array
 };
 
 export default Chapter;

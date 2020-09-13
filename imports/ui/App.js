@@ -10,9 +10,10 @@ import Thoughts from "../api/thoughts";
 import Words from "../api/words";
 
 function App() {
-  const { chapters, thoughts } = useTracker(() => ({
+  const { chapters, thoughts, words } = useTracker(() => ({
     chapters: Chapters.find({}, { sort: { createdAt: -1 } }).fetch(),
-    thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch()
+    thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
+    words: Words.find({}).fetch()
   }));
 
   return (
@@ -35,7 +36,9 @@ function App() {
           placeholder="Add a new chapter"
         />
         {chapters &&
-          chapters.map(chapter => <Chapter key={chapter._id} {...chapter} />)}
+          chapters.map(chapter => (
+            <Chapter key={chapter._id} words={words} {...chapter} />
+          ))}
       </Box>
 
       <Box>

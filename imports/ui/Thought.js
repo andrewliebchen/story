@@ -1,11 +1,23 @@
-import { IconButton } from "theme-ui";
+import { IconButton, Text } from "theme-ui";
 import ElementRow from "./ElementRow";
 import React from "react";
 import PropTypes from "prop-types";
 import Thoughts from "../api/thoughts";
+import MarkdownView from "react-showdown";
 
 const Thought = props => (
   <ElementRow
+    content={
+      <Text
+        sx={{
+          textDecoration: props.isMuted && "line-through",
+          flex: "auto"
+        }}
+      >
+        <MarkdownView markdown={props.value} />
+        {props.content}
+      </Text>
+    }
     isMuted={props.done}
     actions={
       <>

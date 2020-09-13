@@ -22,14 +22,7 @@ const ElementRow = props => (
     }}
   >
     <Box>
-      <Text
-        sx={{
-          textDecoration: props.isMuted && "line-through",
-          flex: "auto"
-        }}
-      >
-        <MarkdownView markdown={props.value} />
-      </Text>
+      {props.content}
       {props.createdAt && (
         <Text variant="secondary">
           Created <TimeAgo date={props.createdAt} />
@@ -48,12 +41,11 @@ const ElementRow = props => (
 );
 
 ElementRow.propTypes = {
-  _id: PropTypes.string,
   action: PropTypes.node,
+  content: PropTypes.node,
   createdAt: PropTypes.number,
   isMuted: PropTypes.bool,
-  updatedAt: PropTypes.number,
-  value: PropTypes.string
+  updatedAt: PropTypes.number
 };
 
 export default ElementRow;
