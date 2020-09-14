@@ -1,8 +1,19 @@
+import alpha from "color-alpha";
+
 const heading = {
   color: "text",
   fontFamily: "heading",
   lineHeight: "heading",
   fontWeight: "heading"
+};
+
+export const spectrum = {
+  red: "rgb(255, 0, 0)",
+  orange: "orange",
+  yellow: "yellow",
+  green: "rgb(0, 255, 0)",
+  blue: "rgb(0, 0, 255)",
+  purple: "purple"
 };
 
 export const base = {
@@ -27,9 +38,9 @@ export const base = {
     text: "#000",
     textSecondary: "rgba(0, 0, 0, 0.5)",
     background: "#fff",
-    primary: "rgba(0, 0, 255, 1.0)",
-    primaryBg: "rgba(0, 0, 255, 0.05)",
-    secondary: "purple",
+    primary: spectrum.blue,
+    primaryBg: alpha(spectrum.blue, 0.05),
+    secondary: spectrum.purple,
     muted: "rgba(0, 0, 0, 0.05)"
   },
 
