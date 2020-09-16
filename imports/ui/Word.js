@@ -1,12 +1,12 @@
-import { Box, Flex, Select, Text } from "theme-ui";
+import { Box, Checkbox, Flex, IconButton, Select, Text } from "theme-ui";
+import { wordTypes } from "../utils/types";
+import alpha from "color-alpha";
+import Overlay from "./Overlay";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import Overlay from "./Overlay";
-import Words from "../api/words";
-import { wordTypes } from "../utils/types";
 import spectrum from "../utils/theme";
-import alpha from "color-alpha";
 import theme from "../utils/theme";
+import Words from "../api/words";
 
 const spectrumLabels = Object.keys(spectrum);
 
@@ -37,32 +37,44 @@ const Word = props => {
       <Text>&nbsp;</Text>
 
       <Overlay show={active} close={() => setActive(false)} {...props}>
-        <Flex sx={{ mx: -1 }}>
-          {wordTypes.map(type => (
-            <Flex
-              key={type.value}
-              onClick={() =>
-                Words.update(props._id, { $set: { type: type.value } })
-              }
-              sx={{
-                alignItems: "center",
-                bg: alpha(type.color, type.value === props.type ? 1 : 0.2),
-                border: "5px solid transparent",
-                borderRadius: 4,
-                cursor: "pointer",
-                height: 128,
-                justifyContent: "center",
-                mx: 1,
-                width: 128,
-                "&:hover": {
-                  borderColor: type.color
-                }
-              }}
-            >
-              <Text>{type.value}</Text>
-            </Flex>
-          ))}
+        <Flex sx={{ mb: 3, justifyContent: "space-between" }}>
+          <Text>
+            <b>{props.value}</b> is a...
+          </Text>
+          <Flex>
+            <IconButton children="⏮" />
+            <IconButton children="⏭" />
+          </Flex>
         </Flex>
+        <Box>
+          {wordTypes.map(type => {
+            const isSelected = type.value === props.type;
+            return (
+              <Flex
+                key={type.value}
+                onClick={() =>
+                  Words.update(props._id, { $set: { type: type.value } })
+                }
+                sx={{
+                  alignItems: "center",
+                  bg: alpha(type.color, isSelected ? 1 : 0.2),
+                  border: "5px solid transparent",
+                  borderRadius: 4,
+                  cursor: "pointer",
+                  mt: 1,
+                  p: 2,
+                  width: 200,
+                  "&:hover": {
+                    borderColor: type.color
+                  }
+                }}
+              >
+                <Checkbox checked={isSelected} readOnly />
+                <Text>{type.value}</Text>
+              </Flex>
+            );
+          })}
+        </Box>
       </Overlay>
     </Flex>
   );
