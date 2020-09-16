@@ -6,17 +6,20 @@ import Words from "../api/words";
 import { wordTypes } from "../utils/types";
 import spectrum from "../utils/theme";
 import alpha from "color-alpha";
+import theme from "../utils/theme";
 
 const spectrumLabels = Object.keys(spectrum);
 
 const Word = props => {
   const [active, setActive] = useState(false);
-  const color = wordTypes.find(word => word.value === props.type).color;
+  const color = props.type
+    ? wordTypes.find(word => word.value === props.type).color
+    : theme.colors.primary;
 
   return (
-    <Flex sx={{ position: "relative" }}>
+    <Flex>
       <Text
-        onClick={() => setActive(!active)}
+        onClick={() => setActive(true)}
         title={props.type}
         sx={{
           color: color,
@@ -33,23 +36,21 @@ const Word = props => {
       </Text>
       <Text>&nbsp;</Text>
 
-      {active && (
-        <Popover {...props}>
-          <Select
-            defaultValue={props.type}
-            onChange={event =>
-              Words.update(props._id, { $set: { type: event.target.value } })
-            }
-          >
-            <option value="">ignore</option>
-            {wordTypes.map(type => (
-              <option key={type.value} value={type.value}>
-                {type.value}
-              </option>
-            ))}
-          </Select>
-        </Popover>
-      )}
+      <Popover show={active} close={() => setActive(false)} {...props}>
+        <Select
+          defaultValue={props.type}
+          onChange={event =>
+            Words.update(props._id, { $set: { type: event.target.value } })
+          }
+        >
+          <option value="">ignore</option>
+          {wordTypes.map(type => (
+            <option key={type.value} value={type.value}>
+              {type.value}
+            </option>
+          ))}
+        </Select>
+      </Popover>
     </Flex>
   );
 };

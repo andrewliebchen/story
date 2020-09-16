@@ -5,5 +5,5 @@ export const wordTypes = [
   { value: "action", color: spectrum.orange },
   { value: "object", color: spectrum.green },
   { value: "modifier", color: spectrum.purple },
-  { value: "ignore", color: "gray" }
+  { value: "ignore", color: "#F2F2F2" }
 ];
