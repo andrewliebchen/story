@@ -31,10 +31,10 @@ const Thought = props => (
           }
         />
         <IconButton
-          children={props.done ? "⏮" : "✅"}
+          children={props.done ? "🛑" : "✅"}
           onClick={() =>
             Thoughts.update(props._id, {
-              $set: { done: !props.isMuted, updatedAt: Date.now() }
+              $set: { done: !props.done, updatedAt: Date.now() }
             })
           }
         />
