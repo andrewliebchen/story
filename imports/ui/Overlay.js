@@ -1,34 +1,33 @@
-import React from "react";
 import { Box, Flex, Text } from "theme-ui";
 import PropTypes from "prop-types";
+import React from "react";
 
-const Popover = props => (
-  <Box sx={{ top: 0, left: 0, position: "fixed" }}>
+const Overlay = props => (
+  <Box sx={{ left: 0, position: "fixed", top: 0 }}>
     {props.show && (
       <Flex
         sx={{
-          p: 2,
-          width: "100vw",
-          height: "100vh",
           alignItems: "center",
-          justifyContent: "center"
+          height: "100vh",
+          justifyContent: "center",
+          width: "100vw"
         }}
       >
         <Box
           onClick={props.close}
           sx={{
+            height: "100vh",
             position: "absolute",
-            width: "100vw",
-            height: "100vh"
+            width: "100vw"
           }}
         />
         <Box
           sx={{
-            border: "1px solid",
             bg: "white",
-            p: 2,
-            userSelect: "none",
+            border: "1px solid",
+            p: 3,
             position: "relative",
+            userSelect: "none",
             zIndex: 1
           }}
         >
@@ -39,9 +38,9 @@ const Popover = props => (
   </Box>
 );
 
-Popover.propTypes = {
+Overlay.propTypes = {
   close: PropTypes.func,
   show: PropTypes.bool
 };
 
-export default Popover;
+export default Overlay;

@@ -1,9 +1,9 @@
 import { IconButton, Text } from "theme-ui";
 import ElementRow from "./ElementRow";
-import React from "react";
-import PropTypes from "prop-types";
-import Thoughts from "../api/thoughts";
 import MarkdownView from "react-showdown";
+import PropTypes from "prop-types";
+import React from "react";
+import Thoughts from "../api/thoughts";
 
 const Thought = props => (
   <ElementRow

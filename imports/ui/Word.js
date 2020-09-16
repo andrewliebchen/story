@@ -1,7 +1,7 @@
 import { Box, Flex, Select, Text } from "theme-ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import Popover from "./Popover";
+import Overlay from "./Overlay";
 import Words from "../api/words";
 import { wordTypes } from "../utils/types";
 import spectrum from "../utils/theme";
@@ -36,7 +36,7 @@ const Word = props => {
       </Text>
       <Text>&nbsp;</Text>
 
-      <Popover show={active} close={() => setActive(false)} {...props}>
+      <Overlay show={active} close={() => setActive(false)} {...props}>
         <Flex sx={{ mx: -1 }}>
           {wordTypes.map(type => (
             <Flex
@@ -63,7 +63,7 @@ const Word = props => {
             </Flex>
           ))}
         </Flex>
-      </Popover>
+      </Overlay>
     </Flex>
   );
 };
