@@ -37,19 +37,32 @@ const Word = props => {
       <Text>&nbsp;</Text>
 
       <Popover show={active} close={() => setActive(false)} {...props}>
-        <Select
-          defaultValue={props.type}
-          onChange={event =>
-            Words.update(props._id, { $set: { type: event.target.value } })
-          }
-        >
-          <option value="">ignore</option>
+        <Flex sx={{ mx: -1 }}>
           {wordTypes.map(type => (
-            <option key={type.value} value={type.value}>
-              {type.value}
-            </option>
+            <Flex
+              key={type.value}
+              onClick={() =>
+                Words.update(props._id, { $set: { type: type.value } })
+              }
+              sx={{
+                alignItems: "center",
+                bg: alpha(type.color, type.value === props.type ? 1 : 0.2),
+                border: "5px solid transparent",
+                borderRadius: 4,
+                cursor: "pointer",
+                height: 128,
+                justifyContent: "center",
+                mx: 1,
+                width: 128,
+                "&:hover": {
+                  borderColor: type.color
+                }
+              }}
+            >
+              <Text>{type.value}</Text>
+            </Flex>
           ))}
-        </Select>
+        </Flex>
       </Popover>
     </Flex>
   );

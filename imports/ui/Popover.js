@@ -28,7 +28,6 @@ const Popover = props => (
             bg: "white",
             p: 2,
             userSelect: "none",
-            width: 200,
             position: "relative",
             zIndex: 1
           }}
