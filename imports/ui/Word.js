@@ -27,8 +27,7 @@ const Word = props => {
           m: -1,
           p: 1,
           "&:hover": {
-            bg: alpha(color, 0.1),
-            color: "primary"
+            bg: alpha(color, 0.1)
           }
         }}
       >

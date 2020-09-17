@@ -8,12 +8,13 @@ const heading = {
 };
 
 export const spectrum = {
-  red: "rgb(255, 0, 0)",
-  orange: "orange",
-  yellow: "yellow",
-  green: "rgb(0, 255, 0)",
-  blue: "rgb(0, 0, 255)",
-  purple: "purple"
+  red: "firebrick",
+  orange: "chocolate",
+  yellow: "darkgoldenrod",
+  green: "lightseagreen",
+  blue: "royalblue",
+  purple: "darkorchid",
+  gray: "darkgray"
 };
 
 export const base = {
