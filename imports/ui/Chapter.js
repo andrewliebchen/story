@@ -5,14 +5,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import Word from "./Word";
 
-const Chapter = props => (
+const Chapter = (props) => (
   <ElementRow
     content={
       <Flex>
         {props.words
-          .filter(word => word.parentId === props._id)
-          .map(word => (
-            <Word key={word._id} {...word} />
+          .filter((word) => word.parentId === props._id)
+          .map((word) => (
+            <Word key={word._id} words={props.words} {...word} />
           ))}
       </Flex>
     }
@@ -36,7 +36,7 @@ Chapter.propTypes = {
   createdAt: PropTypes.number,
   updatedAt: PropTypes.number,
   value: PropTypes.string,
-  words: PropTypes.array
+  words: PropTypes.array,
 };
 
 export default Chapter;

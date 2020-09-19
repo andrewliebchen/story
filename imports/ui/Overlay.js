@@ -2,7 +2,7 @@ import { Box, Flex, Text } from "theme-ui";
 import PropTypes from "prop-types";
 import React from "react";
 
-const Overlay = props => (
+const Overlay = (props) => (
   <Box sx={{ left: 0, position: "fixed", top: 0 }}>
     {props.show && (
       <Flex
@@ -10,7 +10,7 @@ const Overlay = props => (
           alignItems: "center",
           height: "100vh",
           justifyContent: "center",
-          width: "100vw"
+          width: "100vw",
         }}
       >
         <Box
@@ -18,7 +18,7 @@ const Overlay = props => (
           sx={{
             height: "100vh",
             position: "absolute",
-            width: "100vw"
+            width: "100vw",
           }}
         />
         <Box
@@ -28,7 +28,8 @@ const Overlay = props => (
             p: 3,
             position: "relative",
             userSelect: "none",
-            zIndex: 1
+            zIndex: 1,
+            width: 300,
           }}
         >
           {props.children}
@@ -40,7 +41,7 @@ const Overlay = props => (
 
 Overlay.propTypes = {
   close: PropTypes.func,
-  show: PropTypes.bool
+  show: PropTypes.bool,
 };
 
 export default Overlay;

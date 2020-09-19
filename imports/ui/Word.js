@@ -10,10 +10,10 @@ import Words from "../api/words";
 
 const spectrumLabels = Object.keys(spectrum);
 
-const Word = props => {
+const Word = (props) => {
   const [active, setActive] = useState(false);
   const color = props.type
-    ? wordTypes.find(word => word.value === props.type).color
+    ? wordTypes.find((word) => word.value === props.type).color
     : theme.colors.primary;
 
   return (
@@ -27,8 +27,8 @@ const Word = props => {
           m: -1,
           p: 1,
           "&:hover": {
-            bg: alpha(color, 0.1)
-          }
+            bg: alpha(color, 0.1),
+          },
         }}
       >
         {props.value}
@@ -45,8 +45,8 @@ const Word = props => {
             <IconButton children="⏭" />
           </Flex>
         </Flex>
-        <Box>
-          {wordTypes.map(type => {
+        <Box sx={{ mb: 3 }}>
+          {wordTypes.map((type) => {
             const isSelected = type.value === props.type;
             return (
               <Flex
@@ -62,10 +62,9 @@ const Word = props => {
                   cursor: "pointer",
                   mt: 1,
                   p: 2,
-                  width: 200,
                   "&:hover": {
-                    borderColor: type.color
-                  }
+                    borderColor: type.color,
+                  },
                 }}
               >
                 <Checkbox checked={isSelected} readOnly />
@@ -74,6 +73,26 @@ const Word = props => {
             );
           })}
         </Box>
+        <Flex sx={{ alignItems: "center", justifyContent: "space-between" }}>
+          Link to
+          <Select
+            sx={{ display: "flex", width: 200 }}
+            defaultValue={
+              props.linkId &&
+              props.words.find((word) => word._id === props.linkId)._id
+            }
+            onChange={(event) =>
+              Words.update(props._id, { $set: { linkId: event.target.value } })
+            }
+          >
+            <option value={false}>None</option>
+            {props.words.map((word) => (
+              <option key={word._id} value={word._id}>
+                {word.value}
+              </option>
+            ))}
+          </Select>
+        </Flex>
       </Overlay>
     </Flex>
   );
@@ -82,8 +101,10 @@ const Word = props => {
 Word.propTypes = {
   _id: PropTypes.string,
   value: PropTypes.string,
-  type: PropTypes.oneOf(wordTypes.map(word => word.value)),
-  color: PropTypes.string
+  type: PropTypes.oneOf(wordTypes.map((word) => word.value)),
+  color: PropTypes.string,
+  words: PropTypes.array,
+  linkTo: PropTypes.string,
 };
 
 export default Word;
