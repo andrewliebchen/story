@@ -3,9 +3,9 @@ import { wordChunks } from "split-word";
 import AppContext from "./AppContext";
 import Chapters from "../api/chapters";
 import ElementRow from "./ElementRow";
+import MarkdownView from "react-showdown";
 import New from "./New";
 import React from "react";
-import Thought from "./Thought";
 import Thoughts from "../api/thoughts";
 import Word from "./Word";
 import Words from "../api/words";
@@ -76,7 +76,47 @@ function App() {
             {props.thoughts &&
               props.thoughts
                 .filter((thought) => (props.showMuted ? !thought.done : true))
-                .map((thought) => <Thought key={thought._id} {...thought} />)}
+                .map((thought) => (
+                  <ElementRow
+                    key={thought._id}
+                    content={
+                      <Text
+                        sx={{
+                          textDecoration: thought.done && "line-through",
+                          flex: "auto",
+                        }}
+                      >
+                        <MarkdownView markdown={thought.value} />
+                      </Text>
+                    }
+                    isMuted={props.done}
+                    actions={
+                      <>
+                        <IconButton
+                          children="🗑"
+                          mr={2}
+                          onClick={() =>
+                            window.confirm(
+                              "Are you sure you want to delete this Thought? This action can't be undone."
+                            ) && Thoughts.remove(thought._id)
+                          }
+                        />
+                        <IconButton
+                          children={thought.done ? "🛑" : "✅"}
+                          onClick={() =>
+                            Thoughts.update(thought._id, {
+                              $set: {
+                                done: !thought.done,
+                                updatedAt: Date.now(),
+                              },
+                            })
+                          }
+                        />
+                      </>
+                    }
+                    {...thought}
+                  />
+                ))}
           </Box>
         </Grid>
       )}
