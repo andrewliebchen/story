@@ -1,22 +1,16 @@
-import { Box, Checkbox, Grid, Heading, Flex, Text } from "theme-ui";
-import { useTracker } from "meteor/react-meteor-data";
+import { Box, Checkbox, Flex, Grid, Heading, IconButton, Text } from "theme-ui";
 import { wordChunks } from "split-word";
-import Chapter from "./Chapter";
+import AppContext from "./AppContext";
 import Chapters from "../api/chapters";
+import ElementRow from "./ElementRow";
 import New from "./New";
 import React from "react";
 import Thought from "./Thought";
 import Thoughts from "../api/thoughts";
+import Word from "./Word";
 import Words from "../api/words";
-import AppContext from "./AppContext";
 
 function App() {
-  const { chapters, thoughts, words } = useTracker(() => ({
-    chapters: Chapters.find({}, { sort: { createdAt: -1 } }).fetch(),
-    thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
-    words: Words.find({}).fetch(),
-  }));
-
   return (
     <AppContext.Consumer>
       {(props) => (
@@ -42,7 +36,30 @@ function App() {
             />
             {props.chapters &&
               props.chapters.map((chapter) => (
-                <Chapter key={chapter._id} words={words} {...chapter} />
+                <ElementRow
+                  key={chapter._id}
+                  content={
+                    <Flex>
+                      {props.words
+                        .filter((word) => word.parentId === chapter._id)
+                        .map((word) => (
+                          <Word key={word._id} words={props.words} {...word} />
+                        ))}
+                    </Flex>
+                  }
+                  actions={
+                    <IconButton
+                      children="🗑"
+                      mr={2}
+                      onClick={() =>
+                        window.confirm(
+                          "Are you sure you want to delete this chapter? This action can't be undone."
+                        ) && Chapters.remove(props._id)
+                      }
+                    />
+                  }
+                  {...chapter}
+                />
               ))}
           </Box>
 

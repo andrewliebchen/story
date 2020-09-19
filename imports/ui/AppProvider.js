@@ -12,7 +12,6 @@ const AppProvider = (props) => {
     thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
     words: Words.find({}).fetch(),
   }));
-  console.log(data);
 
   return (
     <AppContext.Provider
