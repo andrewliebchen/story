@@ -1,4 +1,5 @@
 import { Box, Checkbox, Flex, Grid, Heading, IconButton, Text } from "theme-ui";
+import { Meteor } from "meteor/meteor";
 import { wordChunks } from "split-word";
 import AppContext from "./AppContext";
 import Chapters from "../api/chapters";
@@ -8,7 +9,6 @@ import New from "./New";
 import React from "react";
 import Thoughts from "../api/thoughts";
 import Word from "./Word";
-import Words from "../api/words";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <New
               clickMixin={(id, value) =>
                 wordChunks(value).map((word, index) =>
-                  Words.insert({
+                  Meteor.call("words.insert", {
                     value: word,
                     index: index,
                     parentId: id,
@@ -54,7 +54,7 @@ function App() {
                       onClick={() =>
                         window.confirm(
                           "Are you sure you want to delete this chapter? This action can't be undone."
-                        ) && Chapters.remove(props._id)
+                        ) && Meteor.call("chapters.remove", chapter._id)
                       }
                     />
                   }
@@ -98,17 +98,15 @@ function App() {
                           onClick={() =>
                             window.confirm(
                               "Are you sure you want to delete this Thought? This action can't be undone."
-                            ) && Thoughts.remove(thought._id)
+                            ) && Meteor.call("thoughts.remove", thought._id)
                           }
                         />
                         <IconButton
                           children={thought.done ? "🛑" : "✅"}
                           onClick={() =>
-                            Thoughts.update(thought._id, {
-                              $set: {
-                                done: !thought.done,
-                                updatedAt: Date.now(),
-                              },
+                            Meteor.call("thoughts.update", thought._id, {
+                              done: !thought.done,
+                              updatedAt: Date.now(),
                             })
                           }
                         />
