@@ -1,10 +1,11 @@
-import React from "react";
 import { Box, Flex, Heading, IconButton } from "theme-ui";
-import Cursor from "../api/chapters";
 import { Meteor } from "meteor/meteor";
+import { wordChunks } from "split-word";
 import AppContext from "./AppContext";
-import New from "./New";
+import Cursor from "../api/chapters";
 import ElementRow from "./ElementRow";
+import New from "./New";
+import React from "react";
 import Word from "./Word";
 
 const Chapters = () => (
