@@ -3,6 +3,7 @@ import AppContext from "./AppContext";
 import Chapters from "./Chapters";
 import React from "react";
 import Thoughts from "./Thoughts";
+import Mocks from "./Mocks";
 
 const App = () => (
   <AppContext.Consumer>
@@ -12,6 +13,7 @@ const App = () => (
       >
         <Chapters />
         <Thoughts />
+        <Mocks />
       </Grid>
     )}
   </AppContext.Consumer>

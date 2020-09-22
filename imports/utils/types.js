@@ -8,3 +8,5 @@ export const wordTypes = [
   { value: "ignore", color: spectrum.gray },
   { value: "none", color: spectrum.blue },
 ];
+
+export const mockTypes = ["profile"];

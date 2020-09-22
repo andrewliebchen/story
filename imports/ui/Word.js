@@ -86,26 +86,27 @@ const Word = (props) => {
           })}
         </Box>
         <Flex sx={{ alignItems: "center", justifyContent: "space-between" }}>
-          Link to
-          <Select
-            sx={{ display: "flex", width: 200 }}
-            defaultValue={
-              props.linkId &&
-              props.words.find((word) => word._id === props.linkId)._id
-            }
-            onChange={(event) =>
-              Meteor.call("words.update", props._id, {
-                linkId: event.target.value,
-              })
-            }
-          >
-            <option value={false}>None</option>
-            {props.words.map((word) => (
-              <option key={word._id} value={word._id}>
-                {word.value}
-              </option>
-            ))}
-          </Select>
+          <Text>Link to</Text>
+          <Box sx={{ flexGrow: 2, ml: 2 }}>
+            <Select
+              defaultValue={
+                props.linkId &&
+                props.words.find((word) => word._id === props.linkId)._id
+              }
+              onChange={(event) =>
+                Meteor.call("words.update", props._id, {
+                  linkId: event.target.value,
+                })
+              }
+            >
+              <option value={false}>None</option>
+              {props.words.map((word) => (
+                <option key={word._id} value={word._id}>
+                  {word.value}
+                </option>
+              ))}
+            </Select>
+          </Box>
         </Flex>
       </Overlay>
     </Flex>
