@@ -54,6 +54,7 @@ const Word = (props) => {
           <Flex>
             <IconButton children="⏮" />
             <IconButton children="⏭" />
+            <IconButton children="❌" onClick={() => setActive(false)} />
           </Flex>
         </Flex>
         <Box sx={{ mb: 3 }}>
