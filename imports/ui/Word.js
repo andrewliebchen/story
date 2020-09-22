@@ -7,6 +7,7 @@ import {
   Select,
   Text,
 } from "theme-ui";
+import { Meteor } from "meteor/meteor";
 import { wordTypes } from "../utils/types";
 import alpha from "color-alpha";
 import Overlay from "./Overlay";
@@ -62,7 +63,7 @@ const Word = (props) => {
               <Flex
                 key={type.value}
                 onClick={() =>
-                  Words.update(props._id, { $set: { type: type.value } })
+                  Meteor.call("words.update", props._id, { type: type.value })
                 }
                 sx={{
                   alignItems: "center",
@@ -92,7 +93,9 @@ const Word = (props) => {
               props.words.find((word) => word._id === props.linkId)._id
             }
             onChange={(event) =>
-              Words.update(props._id, { $set: { linkId: event.target.value } })
+              Meteor.call("words.update", props._id, {
+                linkId: event.target.value,
+              })
             }
           >
             <option value={false}>None</option>
