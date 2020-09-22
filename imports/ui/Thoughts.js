@@ -28,30 +28,35 @@ const Thoughts = () => {
               mb={3}
               placeholder="Add a new thought"
             />
-            <Button
-              variant="primary"
-              onClick={() =>
-                Meteor.call(
-                  "thoughts.insert",
-                  {
-                    value: value,
-                    createdAt: Date.now(),
-                    lastUpdated: Date.now(),
-                  },
-                  (err, success) => success && setValue("")
-                )
-              }
+            <Flex
+              sx={{ alignItems: "center", justifyContent: "space-between" }}
             >
-              Create
-            </Button>
+              <Flex
+                sx={{ cusor: "pointer" }}
+                onClick={() => props.setShowMuted(!props.showMuted)}
+              >
+                <Checkbox checked={props.showMuted} readOnly />
+                <Text>Show muted thoughts</Text>
+              </Flex>
+              <Button
+                variant="primary"
+                onClick={() =>
+                  Meteor.call(
+                    "thoughts.insert",
+                    {
+                      value: value,
+                      createdAt: Date.now(),
+                      lastUpdated: Date.now(),
+                    },
+                    (err, success) => success && setValue("")
+                  )
+                }
+              >
+                Create
+              </Button>
+            </Flex>
           </Box>
-          <Flex
-            sx={{ cusor: "pointer", mt: 3 }}
-            onClick={() => props.setShowMuted(!props.showMuted)}
-          >
-            <Checkbox checked={props.showMuted} readOnly />
-            <Text>Show muted thoughts</Text>
-          </Flex>
+
           {props.thoughts &&
             props.thoughts
               .filter((thought) => (props.showMuted ? !thought.done : true))

@@ -19,22 +19,30 @@ const Chapters = () => {
               mb={3}
               placeholder="Add a new chapter"
             />
-            <Button
-              variant="primary"
-              onClick={() =>
-                Meteor.call(
-                  "chapters.insert",
-                  {
-                    value: value,
-                    createdAt: Date.now(),
-                    lastUpdated: Date.now(),
-                  },
-                  (err, success) => success && setValue("")
-                )
-              }
+            <Flex
+              sx={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: "row-reverse",
+              }}
             >
-              Create
-            </Button>
+              <Button
+                variant="primary"
+                onClick={() =>
+                  Meteor.call(
+                    "chapters.insert",
+                    {
+                      value: value,
+                      createdAt: Date.now(),
+                      lastUpdated: Date.now(),
+                    },
+                    (err, success) => success && setValue("")
+                  )
+                }
+              >
+                Create
+              </Button>
+            </Flex>
           </Box>
           {props.chapters &&
             props.chapters.map((chapter) => (
