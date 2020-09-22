@@ -7,9 +7,9 @@ const Overlay = (props) => (
     {props.show && (
       <Flex
         sx={{
-          alignItems: "stretch",
+          alignItems: "center",
           height: "100vh",
-          justifyContent: "flex-end",
+          justifyContent: "center",
           width: "100vw",
         }}
       >
@@ -24,12 +24,12 @@ const Overlay = (props) => (
         <Box
           sx={{
             bg: "white",
-            borderLeft: "1px solid",
+            border: "1px solid",
             p: 3,
             position: "relative",
             userSelect: "none",
             zIndex: 1,
-            width: "50vw",
+            width: 500,
           }}
         >
           {props.children}

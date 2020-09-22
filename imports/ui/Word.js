@@ -1,4 +1,12 @@
-import { Box, Checkbox, Flex, IconButton, Select, Text } from "theme-ui";
+import {
+  Box,
+  Checkbox,
+  Flex,
+  Heading,
+  IconButton,
+  Select,
+  Text,
+} from "theme-ui";
 import { wordTypes } from "../utils/types";
 import alpha from "color-alpha";
 import Overlay from "./Overlay";
@@ -36,10 +44,12 @@ const Word = (props) => {
       <Text>&nbsp;</Text>
 
       <Overlay show={active} close={() => setActive(false)} {...props}>
-        <Flex sx={{ mb: 3, justifyContent: "space-between" }}>
-          <Text>
-            <b>{props.value}</b> is a...
-          </Text>
+        <Flex
+          sx={{ mb: 3, justifyContent: "space-between", alignItems: "center" }}
+        >
+          <Heading>
+            <i>{props.value}</i> is a...
+          </Heading>
           <Flex>
             <IconButton children="⏮" />
             <IconButton children="⏭" />
