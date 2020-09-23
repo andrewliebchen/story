@@ -5,7 +5,6 @@ import { mockTypes } from "../utils/types";
 
 const Mocks = () => {
   const [value, setValue] = useState(mockTypes[0].value);
-  console.log(value);
   return (
     <AppContext.Consumer>
       {(props) => (

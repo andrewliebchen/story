@@ -13,20 +13,26 @@ export const mockTypes = [
   {
     value: "profile",
     schema: {
-      items: {
-        type: "object",
-        properties: {
-          name: {
-            type: "string",
-            faker: "name.findName",
-          },
-          email: {
-            type: "string",
-            faker: "internet.email",
-          },
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+          faker: "name.findName",
         },
-        required: ["name", "email"],
+        email: {
+          type: "string",
+          faker: "internet.email",
+        },
+        image: {
+          type: "string",
+          faker: "image.avatar",
+        },
+        jobTitle: {
+          type: "string",
+          faker: "name.jobTitle",
+        },
       },
+      required: ["name", "email", "image", "jobTitle"],
     },
   },
 ];

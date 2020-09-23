@@ -15,12 +15,12 @@ Meteor.methods({
   "mocks.insert"(type) {
     const schema = mockTypes.find((mockType) => mockType.value === type).schema;
 
-    return jsf.resolve(schema).then((mock) =>
-      Mocks.insert({
+    return jsf.resolve(schema).then((mock) => {
+      return Mocks.insert({
         type: type,
         data: mock,
-      })
-    );
+      });
+    });
   },
 
   "mocks.update"(id, args) {
