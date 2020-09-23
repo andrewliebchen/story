@@ -14,12 +14,13 @@ Meteor.methods({
 
   "mocks.insert"(type) {
     const schema = mockTypes.find((mockType) => mockType.value === type).schema;
+    const mock = jsf.generate(schema);
 
-    return jsf.resolve(schema).then((mock) => {
-      return Mocks.insert({
-        type: type,
-        data: mock,
-      });
+    return Mocks.insert({
+      type: type,
+      data: mock,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
     });
   },
 

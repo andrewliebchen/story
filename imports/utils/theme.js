@@ -4,7 +4,7 @@ const heading = {
   color: "text",
   fontFamily: "heading",
   lineHeight: "heading",
-  fontWeight: "heading"
+  fontWeight: "heading",
 };
 
 export const spectrum = {
@@ -14,7 +14,7 @@ export const spectrum = {
   green: "lightseagreen",
   blue: "royalblue",
   purple: "darkorchid",
-  gray: "darkgray"
+  gray: "darkgray",
 };
 
 export const base = {
@@ -23,17 +23,17 @@ export const base = {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     heading: "inherit",
-    monospace: "Menlo, monospace"
+    monospace: "Menlo, monospace",
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
   fontWeights: {
     body: 400,
     heading: 700,
-    bold: 700
+    bold: 700,
   },
   lineHeights: {
     body: 1.5,
-    heading: 1.125
+    heading: 1.125,
   },
   colors: {
     text: "#000",
@@ -42,85 +42,93 @@ export const base = {
     primary: spectrum.blue,
     primaryBg: alpha(spectrum.blue, 0.05),
     secondary: spectrum.purple,
-    muted: "rgba(0, 0, 0, 0.05)"
+    muted: "rgba(0, 0, 0, 0.05)",
   },
 
   text: {
     default: {
-      fontSize: 3
+      fontSize: 3,
     },
     secondary: {
-      fontSize: 0
-    }
+      fontSize: 0,
+    },
+  },
+
+  images: {
+    avatar: {
+      width: 48,
+      height: 48,
+      borderRadius: 99999,
+    },
   },
 
   styles: {
     root: {
       fontFamily: "body",
       lineHeight: "body",
-      fontWeight: "body"
+      fontWeight: "body",
     },
     h1: {
       ...heading,
-      fontSize: 5
+      fontSize: 5,
     },
     h2: {
       ...heading,
-      fontSize: 4
+      fontSize: 4,
     },
     h3: {
       ...heading,
-      fontSize: 3
+      fontSize: 3,
     },
     h4: {
       ...heading,
-      fontSize: 2
+      fontSize: 2,
     },
     h5: {
       ...heading,
-      fontSize: 1
+      fontSize: 1,
     },
     h6: {
       ...heading,
-      fontSize: 0
+      fontSize: 0,
     },
     p: {
       color: "text",
       fontFamily: "body",
       fontWeight: "body",
-      lineHeight: "body"
+      lineHeight: "body",
     },
     a: {
-      color: "primary"
+      color: "primary",
     },
     pre: {
       fontFamily: "monospace",
       overflowX: "auto",
       code: {
-        color: "inherit"
-      }
+        color: "inherit",
+      },
     },
     code: {
       fontFamily: "monospace",
-      fontSize: "inherit"
+      fontSize: "inherit",
     },
     table: {
       width: "100%",
       borderCollapse: "separate",
-      borderSpacing: 0
+      borderSpacing: 0,
     },
     th: {
       textAlign: "left",
-      borderBottomStyle: "solid"
+      borderBottomStyle: "solid",
     },
     td: {
       textAlign: "left",
-      borderBottomStyle: "solid"
+      borderBottomStyle: "solid",
     },
     img: {
-      maxWidth: "100%"
-    }
-  }
+      maxWidth: "100%",
+    },
+  },
 };
 
 export default base;

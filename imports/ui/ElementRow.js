@@ -9,7 +9,7 @@ import TimeAgo from "react-time-ago";
 
 JavascriptTimeAgo.addLocale(en);
 
-const ElementRow = props => (
+const ElementRow = (props) => (
   <Flex
     sx={{
       alignItems: "center",
@@ -17,8 +17,8 @@ const ElementRow = props => (
       mx: -3,
       p: 3,
       "&:hover": {
-        backgroundColor: "muted"
-      }
+        backgroundColor: "muted",
+      },
     }}
   >
     <Box>
@@ -41,11 +41,11 @@ const ElementRow = props => (
 );
 
 ElementRow.propTypes = {
-  action: PropTypes.node,
+  actions: PropTypes.node,
   content: PropTypes.node,
   createdAt: PropTypes.number,
   isMuted: PropTypes.bool,
-  updatedAt: PropTypes.number
+  updatedAt: PropTypes.number,
 };
 
 export default ElementRow;
