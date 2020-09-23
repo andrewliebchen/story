@@ -9,4 +9,24 @@ export const wordTypes = [
   { value: "none", color: spectrum.blue },
 ];
 
-export const mockTypes = ["profile"];
+export const mockTypes = [
+  {
+    value: "profile",
+    schema: {
+      items: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            faker: "name.findName",
+          },
+          email: {
+            type: "string",
+            faker: "internet.email",
+          },
+        },
+        required: ["name", "email"],
+      },
+    },
+  },
+];

@@ -26,7 +26,7 @@ const Word = (props) => {
     : theme.colors.primary;
 
   return (
-    <Flex>
+    <Flex sx={{ flexShrink: 0 }}>
       <Text
         onClick={() => setActive(true)}
         title={props.type}
