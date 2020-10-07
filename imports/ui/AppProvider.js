@@ -2,7 +2,6 @@ import AppContext from "./AppContext";
 import React, { useState } from "react";
 import { useTracker } from "meteor/react-meteor-data";
 import Chapters from "../api/chapters";
-import Mocks from "../api/mocks";
 import Thoughts from "../api/thoughts";
 import Words from "../api/words";
 
@@ -10,7 +9,7 @@ const AppProvider = (props) => {
   const [showMuted, setShowMuted] = useState(true);
   const data = useTracker(() => ({
     chapters: Chapters.find({}, { sort: { createdAt: -1 } }).fetch(),
-    mocks: Mocks.find({}).fetch(),
+    mocks: [],
     thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
     words: Words.find({}).fetch(),
   }));
