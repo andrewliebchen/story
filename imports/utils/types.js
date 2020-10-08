@@ -12,27 +12,5 @@ export const wordTypes = [
 export const mockTypes = [
   {
     value: "profile",
-    schema: {
-      type: "object",
-      properties: {
-        name: {
-          type: "string",
-          faker: "name.findName",
-        },
-        email: {
-          type: "string",
-          faker: "internet.email",
-        },
-        image: {
-          type: "string",
-          faker: "image.avatar",
-        },
-        jobTitle: {
-          type: "string",
-          faker: "name.jobTitle",
-        },
-      },
-      required: ["name", "email", "image", "jobTitle"],
-    },
   },
 ];

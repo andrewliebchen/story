@@ -33,13 +33,15 @@ const Mocks = () => {
                 ))}
               </Select>
             </Box>
-            <Button onClick={() => Meteor.call("mocks.insert", value)}>
+            <Button
+              onClick={() => Meteor.call("mocks.insert", { type: value })}
+            >
               Create
             </Button>
           </Flex>
 
           <Box>
-            {props.mocks.map((mock) => (
+            {/* props.mocks.map((mock) => (
               <ElementRow
                 key={mock._id}
                 content={
@@ -63,7 +65,7 @@ const Mocks = () => {
                   />
                 }
               />
-            ))}
+            )) */}
           </Box>
         </Box>
       )}
