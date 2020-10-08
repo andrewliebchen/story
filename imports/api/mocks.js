@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
-import { Mongo } from "meteor/mongo";
 import { mockTypes } from "../utils/types";
+import { Mongo } from "meteor/mongo";
 
 const Mocks = new Mongo.Collection("mocks");
 
@@ -12,6 +12,10 @@ Meteor.methods({
 
   "mocks.update"(id, args) {
     return Mocks.update(id, { $set: args });
+  },
+
+  "mocks.remove"(id) {
+    return Mocks.remove(id);
   },
 });
 

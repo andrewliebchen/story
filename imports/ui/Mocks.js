@@ -40,15 +40,14 @@ const Mocks = () => {
           </Flex>
 
           <Box>
-            {/* props.mocks.map((mock) => (
+            {props.mocks.map((mock) => (
               <ElementRow
                 key={mock._id}
                 content={
                   <Flex sx={{ alignItems: "center" }}>
-                    <Image variant="avatar" src={mock.data.image} />
+                    <Image variant="avatar" src={mock.data.avatar} />
                     <Box ml={2}>
-                      <Text sx={{ fontWeight: "bold" }}>{mock.data.name}</Text>
-                      <Text>{mock.data.jobTitle}</Text>
+                      <Text>{mock.data.name}</Text>
                     </Box>
                   </Flex>
                 }
@@ -64,7 +63,7 @@ const Mocks = () => {
                   />
                 }
               />
-            )) */}
+            ))}
           </Box>
         </Box>
       )}
