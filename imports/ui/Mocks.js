@@ -14,7 +14,8 @@ import ElementRow from "./ElementRow";
 import React, { useState } from "react";
 
 const Mocks = () => {
-  const [value, setValue] = useState(mockTypes[0].value);
+  const mockTypeKeys = Object.keys(mockTypes);
+  const [value, setValue] = useState(mockTypeKeys[0]);
   return (
     <AppContext.Consumer>
       {(props) => (
@@ -26,16 +27,14 @@ const Mocks = () => {
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
               >
-                {mockTypes.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.value}
+                {mockTypeKeys.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
                   </option>
                 ))}
               </Select>
             </Box>
-            <Button
-              onClick={() => Meteor.call("mocks.insert", { type: value })}
-            >
+            <Button onClick={() => Meteor.call("mocks.insert", value)}>
               Create
             </Button>
           </Flex>

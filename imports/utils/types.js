@@ -1,4 +1,5 @@
 import { spectrum } from "./theme";
+import faker from "faker";
 
 export const wordTypes = [
   { value: "actor", color: spectrum.green },
@@ -9,8 +10,6 @@ export const wordTypes = [
   { value: "none", color: spectrum.blue },
 ];
 
-export const mockTypes = [
-  {
-    value: "profile",
-  },
-];
+export const mockTypes = {
+  profile: faker.helpers.contextualCard(),
+};
