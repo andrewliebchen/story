@@ -53,7 +53,12 @@ const Chapters = () => {
                     {props.words
                       .filter((word) => word.parentId === chapter._id)
                       .map((word) => (
-                        <Word key={word._id} words={props.words} {...word} />
+                        <Word
+                          key={word._id}
+                          words={props.words}
+                          mocks={props.mocks}
+                          {...word}
+                        />
                       ))}
                   </Flex>
                 }

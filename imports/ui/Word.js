@@ -15,7 +15,6 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import spectrum from "../utils/theme";
 import theme from "../utils/theme";
-import Words from "../api/words";
 
 const spectrumLabels = Object.keys(spectrum);
 
@@ -24,6 +23,8 @@ const Word = (props) => {
   const color = props.type
     ? wordTypes.find((word) => word.value === props.type).color
     : theme.colors.primary;
+  const mock =
+    props.mockId && props.mocks.find((mock) => mock._id === props.mockId);
 
   return (
     <Flex sx={{ flexShrink: 0 }}>
@@ -85,29 +86,45 @@ const Word = (props) => {
             );
           })}
         </Box>
-        <Flex sx={{ alignItems: "center", justifyContent: "space-between" }}>
+        <Box>
+          <Text>Mock</Text>
+          <Select
+            defaultValue={mock && mock._id}
+            onChange={(event) =>
+              Meteor.call("words.update", props._id, {
+                mockId: event.target.value,
+              })
+            }
+          >
+            <option value={false}>None</option>
+            {props.mocks.map((mock) => (
+              <option key={mock._id} value={mock._id}>
+                {mock.data.name}
+              </option>
+            ))}
+          </Select>
+        </Box>
+        <Box>
           <Text>Link to</Text>
-          <Box sx={{ flexGrow: 2, ml: 2 }}>
-            <Select
-              defaultValue={
-                props.linkId &&
-                props.words.find((word) => word._id === props.linkId)._id
-              }
-              onChange={(event) =>
-                Meteor.call("words.update", props._id, {
-                  linkId: event.target.value,
-                })
-              }
-            >
-              <option value={false}>None</option>
-              {props.words.map((word) => (
-                <option key={word._id} value={word._id}>
-                  {word.value}
-                </option>
-              ))}
-            </Select>
-          </Box>
-        </Flex>
+          <Select
+            defaultValue={
+              props.linkId &&
+              props.words.find((word) => word._id === props.linkId)._id
+            }
+            onChange={(event) =>
+              Meteor.call("words.update", props._id, {
+                linkId: event.target.value,
+              })
+            }
+          >
+            <option value={false}>None</option>
+            {props.words.map((word) => (
+              <option key={word._id} value={word._id}>
+                {word.value}
+              </option>
+            ))}
+          </Select>
+        </Box>
       </Overlay>
     </Flex>
   );
@@ -115,11 +132,12 @@ const Word = (props) => {
 
 Word.propTypes = {
   _id: PropTypes.string,
-  value: PropTypes.string,
-  type: PropTypes.oneOf(wordTypes.map((word) => word.value)),
   color: PropTypes.string,
-  words: PropTypes.array,
   linkTo: PropTypes.string,
+  mocks: PropTypes.array,
+  type: PropTypes.oneOf(wordTypes.map((word) => word.value)),
+  value: PropTypes.string,
+  words: PropTypes.array,
 };
 
 export default Word;
