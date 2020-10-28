@@ -11,13 +11,15 @@ JavascriptTimeAgo.addLocale(en);
 
 const ElementRow = (props) => (
   <Flex
+    onClick={props.onClick}
     sx={{
       alignItems: "center",
       justifyContent: "space-between",
       mx: -3,
       p: 3,
+      backgroundColor: props.selected && "rgba(0, 0, 255, 0.05)",
       "&:hover": {
-        backgroundColor: "muted",
+        backgroundColor: props.selected ? "rgba(0, 0, 255, 0.1)" : "muted",
       },
     }}
   >
@@ -45,7 +47,8 @@ ElementRow.propTypes = {
   content: PropTypes.node,
   createdAt: PropTypes.number,
   isMuted: PropTypes.bool,
-  updatedAt: PropTypes.number,
+  onClick: PropTypes.func,
+  selected: PropTypes.string,
 };
 
 export default ElementRow;

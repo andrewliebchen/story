@@ -7,6 +7,7 @@ import Thoughts from "../api/thoughts";
 import Words from "../api/words";
 
 const AppProvider = (props) => {
+  const [selectedId, setSelectedId] = useState("");
   const [showMuted, setShowMuted] = useState(true);
   const data = useTracker(() => ({
     chapters: Chapters.find({}, { sort: { createdAt: -1 } }).fetch(),
@@ -20,8 +21,10 @@ const AppProvider = (props) => {
       value={{
         ...props,
         ...data,
-        showMuted: showMuted,
+        selectedId: selectedId,
+        setSelectedId: setSelectedId,
         setShowMuted: setShowMuted,
+        showMuted: showMuted,
       }}
     >
       {props.children}

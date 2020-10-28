@@ -41,6 +41,8 @@ const Chapters = () => {
             props.chapters.map((chapter) => (
               <ElementRow
                 key={chapter._id}
+                selected={chapter._id === props.selectedId}
+                onClick={() => props.setSelectedId(chapter._id)}
                 content={
                   <Flex>
                     {props.words
