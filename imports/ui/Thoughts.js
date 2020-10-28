@@ -5,10 +5,11 @@ import {
   Flex,
   Heading,
   IconButton,
+  Input,
   Text,
-  Textarea,
 } from "theme-ui";
 import { Meteor } from "meteor/meteor";
+import { useKeycode } from "@accessible/use-keycode";
 import AppContext from "./AppContext";
 import ElementRow from "./ElementRow";
 import MarkdownView from "react-showdown";
@@ -16,45 +17,49 @@ import React, { useState } from "react";
 
 const Thoughts = () => {
   const [value, setValue] = useState("");
+  const ref = useKeycode(
+    13,
+    () =>
+      value &&
+      Meteor.call(
+        "thoughts.insert",
+        {
+          value: value,
+          createdAt: Date.now(),
+          lastUpdated: Date.now(),
+        },
+        (err, success) => success && setValue("")
+      )
+  );
+
   return (
     <AppContext.Consumer>
       {(props) => (
         <Box>
-          <Heading mb={3}>Thoughts</Heading>
+          <Flex
+            sx={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              mb: 3,
+            }}
+          >
+            <Heading>Thoughts</Heading>
+            <Flex
+              sx={{ cusor: "pointer" }}
+              onClick={() => props.setShowMuted(!props.showMuted)}
+            >
+              <Checkbox checked={props.showMuted} readOnly />
+              <Text>Show muted thoughts</Text>
+            </Flex>
+          </Flex>
           <Box>
-            <Textarea
+            <Input
               value={value}
               onChange={(event) => setValue(event.target.value)}
               mb={3}
               placeholder="Add a new thought"
+              ref={ref}
             />
-            <Flex
-              sx={{ alignItems: "center", justifyContent: "space-between" }}
-            >
-              <Flex
-                sx={{ cusor: "pointer" }}
-                onClick={() => props.setShowMuted(!props.showMuted)}
-              >
-                <Checkbox checked={props.showMuted} readOnly />
-                <Text>Show muted thoughts</Text>
-              </Flex>
-              <Button
-                variant="primary"
-                onClick={() =>
-                  Meteor.call(
-                    "thoughts.insert",
-                    {
-                      value: value,
-                      createdAt: Date.now(),
-                      lastUpdated: Date.now(),
-                    },
-                    (err, success) => success && setValue("")
-                  )
-                }
-              >
-                Create
-              </Button>
-            </Flex>
           </Box>
 
           {props.thoughts &&

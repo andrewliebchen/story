@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Heading, IconButton, Textarea } from "theme-ui";
+import { Box, Button, Flex, Heading, IconButton, Input } from "theme-ui";
 import { Meteor } from "meteor/meteor";
+import { useKeycode } from "@accessible/use-keycode";
 import AppContext from "./AppContext";
 import ElementRow from "./ElementRow";
 import React, { useState } from "react";
@@ -7,42 +8,34 @@ import Word from "./Word";
 
 const Chapters = () => {
   const [value, setValue] = useState("");
+  const ref = useKeycode(
+    13,
+    () =>
+      value &&
+      Meteor.call(
+        "chapters.insert",
+        {
+          value: value,
+          createdAt: Date.now(),
+          lastUpdated: Date.now(),
+        },
+        (err, success) => success && setValue("")
+      )
+  );
+
   return (
     <AppContext.Consumer>
       {(props) => (
         <Box>
           <Heading mb={3}>Chapters</Heading>
           <Box>
-            <Textarea
+            <Input
               value={value}
               onChange={(event) => setValue(event.target.value)}
               mb={3}
               placeholder="Add a new chapter"
+              ref={ref}
             />
-            <Flex
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexDirection: "row-reverse",
-              }}
-            >
-              <Button
-                variant="primary"
-                onClick={() =>
-                  Meteor.call(
-                    "chapters.insert",
-                    {
-                      value: value,
-                      createdAt: Date.now(),
-                      lastUpdated: Date.now(),
-                    },
-                    (err, success) => success && setValue("")
-                  )
-                }
-              >
-                Create
-              </Button>
-            </Flex>
           </Box>
           {props.chapters &&
             props.chapters.map((chapter) => (

@@ -8,6 +8,7 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
+    "@accessible/use-keycode": "^4.0.2",
     "@babel/runtime": "^7.8.4",
     "color-alpha": "^1.0.4",
     "faker": "4.1.x",
