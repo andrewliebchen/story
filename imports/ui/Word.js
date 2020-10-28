@@ -11,6 +11,7 @@ import { Meteor } from "meteor/meteor";
 import { wordTypes } from "../utils/types";
 import alpha from "color-alpha";
 import Overlay from "./Overlay";
+import Person from "./Person";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import spectrum from "../utils/theme";
@@ -28,9 +29,8 @@ const Word = (props) => {
 
   return (
     <Flex sx={{ flexShrink: 0 }}>
-      <Text
+      <Flex
         onClick={() => setActive(true)}
-        title={props.type}
         sx={{
           color: color,
           cursor: "pointer",
@@ -41,8 +41,12 @@ const Word = (props) => {
           },
         }}
       >
-        {props.value}
-      </Text>
+        {props.mockId ? (
+          <Person title={mock.data.name} image={mock.data.avatar} size={16} />
+        ) : (
+          <Text title={props.type}>{props.value}</Text>
+        )}
+      </Flex>
       <Text>&nbsp;</Text>
 
       <Overlay show={active} close={() => setActive(false)} {...props}>

@@ -11,6 +11,7 @@ import {
 import { mockTypes } from "../utils/types";
 import AppContext from "./AppContext";
 import ElementRow from "./ElementRow";
+import Person from "./Person";
 import React, { useState } from "react";
 
 const Mocks = () => {
@@ -44,12 +45,7 @@ const Mocks = () => {
               <ElementRow
                 key={mock._id}
                 content={
-                  <Flex sx={{ alignItems: "center" }}>
-                    <Image variant="avatar" src={mock.data.avatar} />
-                    <Box ml={2}>
-                      <Text>{mock.data.name}</Text>
-                    </Box>
-                  </Flex>
+                  <Person image={mock.data.avatar} title={mock.data.name} />
                 }
                 actions={
                   <IconButton
