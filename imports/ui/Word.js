@@ -90,24 +90,26 @@ const Word = (props) => {
             );
           })}
         </Box>
-        <Box>
-          <Text>Mock</Text>
-          <Select
-            defaultValue={mock && mock._id}
-            onChange={(event) =>
-              Meteor.call("words.update", props._id, {
-                mockId: event.target.value,
-              })
-            }
-          >
-            <option value={false}>None</option>
-            {props.mocks.map((mock) => (
-              <option key={mock._id} value={mock._id}>
-                {mock.data.name}
-              </option>
-            ))}
-          </Select>
-        </Box>
+        {props.type === "actor" && (
+          <Box>
+            <Text>Mock</Text>
+            <Select
+              defaultValue={mock && mock._id}
+              onChange={(event) =>
+                Meteor.call("words.update", props._id, {
+                  mockId: event.target.value,
+                })
+              }
+            >
+              <option value={false}>None</option>
+              {props.mocks.map((mock) => (
+                <option key={mock._id} value={mock._id}>
+                  {mock.data.name}
+                </option>
+              ))}
+            </Select>
+          </Box>
+        )}
         <Box>
           <Text>Link to</Text>
           <Select
