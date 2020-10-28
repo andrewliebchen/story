@@ -22,7 +22,10 @@ const Mocks = () => {
       {(props) => (
         <Box>
           <Heading mb={3}>Mocks</Heading>
-          <Flex sx={{ alignItems: "center", justifyContent: "space-between" }}>
+          <Flex
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+            mb={3}
+          >
             <Box sx={{ flexGrow: 2, mr: 2 }}>
               <Select
                 value={value}
