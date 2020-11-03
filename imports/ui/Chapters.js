@@ -42,7 +42,11 @@ const Chapters = () => {
               <ElementRow
                 key={chapter._id}
                 selected={chapter._id === props.selectedId}
-                onClick={() => props.setSelectedId(chapter._id)}
+                onClick={() =>
+                  props.setSelectedId(
+                    props.selectedId === chapter._id ? null : chapter._id
+                  )
+                }
                 content={
                   <Flex>
                     {props.words

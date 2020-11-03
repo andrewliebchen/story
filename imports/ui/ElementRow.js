@@ -35,6 +35,9 @@ const ElementRow = (props) => (
           Updated <TimeAgo date={props.updatedAt} />
         </Text>
       )}
+      {props.parentId && (
+        <Text variant="secondary">Parent: {props.parentId}</Text>
+      )}
     </Box>
     <Flex sx={{ alignItems: "center", flex: "0 0 auto", ml: 2 }}>
       {props.actions}

@@ -27,6 +27,7 @@ const Thoughts = () => {
           value: value,
           createdAt: Date.now(),
           lastUpdated: Date.now(),
+          parentId: props.seletedId,
         },
         (err, success) => success && setValue("")
       )
@@ -65,6 +66,10 @@ const Thoughts = () => {
           {props.thoughts &&
             props.thoughts
               .filter((thought) => (props.showMuted ? !thought.done : true))
+              .filter(
+                (thought) =>
+                  !props.selectedId || thought.parentId === props.selectedId // Will have to change this once we have a story ID
+              )
               .map((thought) => (
                 <ElementRow
                   key={thought._id}
