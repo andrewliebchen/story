@@ -13,10 +13,11 @@ import { useKeycode } from "@accessible/use-keycode";
 import AppContext from "./AppContext";
 import ElementRow from "./ElementRow";
 import MarkdownView from "react-showdown";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 const Thoughts = () => {
   const [value, setValue] = useState("");
+  const appContext = useContext(AppContext);
   const ref = useKeycode(
     13,
     () =>
@@ -27,7 +28,7 @@ const Thoughts = () => {
           value: value,
           createdAt: Date.now(),
           lastUpdated: Date.now(),
-          parentId: props.seletedId,
+          parentId: appContext.selectedId,
         },
         (err, success) => success && setValue("")
       )
