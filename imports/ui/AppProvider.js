@@ -10,7 +10,7 @@ const AppProvider = (props) => {
   const [selectedId, setSelectedId] = useState("");
   const [showMuted, setShowMuted] = useState(true);
   const data = useTracker(() => ({
-    chapters: Chapters.find({}, { sort: { createdAt: -1 } }).fetch(),
+    chapters: Chapters.find({}, { sort: { createdAt: 1 } }).fetch(),
     mocks: Mocks.find({}).fetch(),
     thoughts: Thoughts.find({}, { sort: { createdAt: -1 } }).fetch(),
     words: Words.find({}).fetch(),

@@ -51,7 +51,7 @@ ElementRow.propTypes = {
   createdAt: PropTypes.number,
   isMuted: PropTypes.bool,
   onClick: PropTypes.func,
-  selected: PropTypes.string,
+  selected: PropTypes.bool,
 };
 
 export default ElementRow;
