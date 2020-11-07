@@ -8,7 +8,7 @@ import {
   Text,
 } from "theme-ui";
 import { Meteor } from "meteor/meteor";
-import { wordTypes } from "../utils/types";
+import { componentTypes, wordTypes } from "../utils/types";
 import alpha from "color-alpha";
 import Overlay from "./Overlay";
 import Person from "./Person";
@@ -106,6 +106,24 @@ const Word = (props) => {
                 <option key={mock._id} value={mock._id}>
                   {mock.data.name}
                 </option>
+              ))}
+            </Select>
+          </Box>
+        )}
+        {props.type === "action" && (
+          <Box>
+            <Text>Component</Text>
+            <Select
+              defaultValue={props.component}
+              onChange={(event) =>
+                Meteor.call("words.update", props._id, {
+                  component: event.target.value,
+                })
+              }
+            >
+              <option value={false}>None</option>
+              {componentTypes.map((component) => (
+                <option key={component.value}>{component.value}</option>
               ))}
             </Select>
           </Box>
