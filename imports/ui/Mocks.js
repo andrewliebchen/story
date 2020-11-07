@@ -5,6 +5,7 @@ import {
   Heading,
   IconButton,
   Image,
+  Input,
   Select,
   Text,
 } from "theme-ui";
@@ -13,9 +14,11 @@ import AppContext from "./AppContext";
 import ElementRow from "./ElementRow";
 import Person from "./Person";
 import React, { useState } from "react";
+import Overlay from "./Overlay";
 
 const Mocks = () => {
   const mockTypeKeys = Object.keys(mockTypes);
+  const [showOptions, setShowOptions] = useState(false);
   const [value, setValue] = useState(mockTypeKeys[0]);
   return (
     <AppContext.Consumer>
@@ -36,9 +39,16 @@ const Mocks = () => {
                     {type}
                   </option>
                 ))}
+                <option value="other">Other</option>
               </Select>
             </Box>
-            <Button onClick={() => Meteor.call("mocks.insert", value)}>
+            <Button
+              onClick={() =>
+                value === "other"
+                  ? setShowOptions(true)
+                  : Meteor.call("mocks.insert", value)
+              }
+            >
               Create
             </Button>
           </Flex>
@@ -64,6 +74,28 @@ const Mocks = () => {
               />
             ))}
           </Box>
+          <Overlay show={showOptions} close={() => setShowOptions(false)}>
+            <Flex
+              sx={{
+                mb: 3,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Heading>Define your mock</Heading>
+              <IconButton children="❌" onClick={() => setActive(false)} />
+            </Flex>
+            <Flex mx={-2}>
+              <Box sx={{ flexGrow: 2, mx: 2 }}>
+                <Text>Key</Text>
+                <Input />
+              </Box>
+              <Box sx={{ flexGrow: 2, mx: 2 }}>
+                <Text>Value</Text>
+                <Input />
+              </Box>
+            </Flex>
+          </Overlay>
         </Box>
       )}
     </AppContext.Consumer>
