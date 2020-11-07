@@ -30,7 +30,10 @@ const Word = (props) => {
   return (
     <Flex sx={{ flexShrink: 0 }}>
       <Flex
-        onClick={() => setActive(true)}
+        onClick={(event) => {
+          event.stopPropagation();
+          setActive(true);
+        }}
         sx={{
           color: color,
           cursor: "pointer",
